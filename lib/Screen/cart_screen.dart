@@ -4,11 +4,13 @@ import 'package:provider/provider.dart';
 import 'package:project/widget/product.dart';
 
 class CartScreen extends StatelessWidget {
+  const CartScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
 
     return Scaffold(
+      key: PageStorageKey('CartScreen'),
       backgroundColor: Colors.white60,
       appBar: AppBar(
         title: Text('Shopping Cart'),

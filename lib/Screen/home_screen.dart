@@ -3,6 +3,8 @@ import 'package:project/widget/product.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 class HomeScreen extends StatefulWidget {
+  HomeScreen({Key? key}) : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -53,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         price: 25.19,
         description: "Polka-Dotted Dress"),
   ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -62,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
       home: DefaultTabController(
           length: 3,
           child: Scaffold(
+            key: PageStorageKey('HomeScreen'),
               body: CustomScrollView(
                 slivers: [
                   SliverAppBar(
@@ -140,9 +144,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-            )
-        ),
-            debugShowCheckedModeBanner: false,
+          ),
+      ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
