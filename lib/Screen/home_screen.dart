@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project/widget/product.dart';
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);

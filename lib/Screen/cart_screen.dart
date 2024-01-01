@@ -5,6 +5,7 @@ import 'package:project/widget/product.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
@@ -70,16 +71,16 @@ class CartScreen extends StatelessWidget {
             ),
           ),
           Container(
-
             color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Total Price: \$${cartProvider.calculateTotalPrice()}',
-                  style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-                  SizedBox(width: 150),
+                  Text(
+                    'Total Price: \$${cartProvider.calculateTotalPrice()}',
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
                   ElevatedButton(
                     onPressed: () {
                       // Add your checkout logic here

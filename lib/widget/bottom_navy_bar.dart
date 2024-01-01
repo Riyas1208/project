@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:project/Screen/cart_screen.dart';
 import 'package:project/Screen/favourite_screen.dart';
 import 'package:project/Screen/home_screen.dart';
-import '../Screen/profile_screen.dart';
+import 'package:project/Screen/profile_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -15,9 +14,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _pages = [
     HomeScreen(key: PageStorageKey('HomeScreen')),
-    FavouritePage(key: PageStorageKey('FavouritePage')),
+    FavouriteScreen(key: PageStorageKey('FavouritePage')),
     CartScreen(key: PageStorageKey('CartScreen')),
-    ProfilePage(key: PageStorageKey('ProfilePage')),
+    ProfileScreen(key: PageStorageKey('ProfilePage')),
   ];
 
   @override
@@ -27,48 +26,80 @@ class _MyHomePageState extends State<MyHomePage> {
         child: _pages[_currentIndex],
         bucket: PageStorageBucket(),
       ),
-      bottomNavigationBar: BottomNavyBar(
-        selectedIndex: _currentIndex,
-        onItemSelected: (index) => setState(() => _currentIndex = index),
-        items: [
-          BottomNavyBarItem(
-            icon: Image.asset(
-              'assets/h3.png',
-              width: 20,
-              height: 20,
-            ),
-            title: const Text('Home'),
-            activeColor: Colors.black,
-            inactiveColor: Colors.grey,
-            textAlign: TextAlign.left,
-          ),
-          BottomNavyBarItem(
-            icon: const Icon(Icons.favorite_border),
-            title: const Text('Favourite'),
-            activeColor: Colors.black,
-            inactiveColor: Colors.grey,
-            textAlign: TextAlign.left,
-          ),
-          BottomNavyBarItem(
-            icon: const Icon(Icons.shopping_bag_outlined),
-            title: const Text('Cart'),
-            activeColor: Colors.black,
-            inactiveColor: Colors.grey,
-            textAlign: TextAlign.left,
-          ),
-          BottomNavyBarItem(
-            icon: const CircleAvatar(
-              backgroundImage: AssetImage('assets/p1.png'),
-              radius: 15,
-            ),
-            title: const Text('Profile'),
-            activeColor: Colors.black,
-            inactiveColor: Colors.grey,
-            textAlign: TextAlign.left,
-          ),
-        ],
-        containerHeight: kBottomNavigationBarHeight + 10,
-        itemCornerRadius: 20,
+      bottomNavigationBar: Container(
+        height: 50,
+        width: 100,
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildNavItem('Home', 'assets/h3.png', null, 0),
+            _buildNavItem('Favourite', null, Icons.favorite_border, 1),
+            _buildNavItem('Cart', null, Icons.shopping_bag_outlined, 2),
+            _buildNavItem('Profile', 'assets/p1.png', null, 3),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem(String label, String? imagePath, IconData? icon,
+      int index) {
+    bool isSelected = _currentIndex == index;
+
+    Widget content;
+
+    if (imagePath != null) {
+      if (label == 'Profile') {
+        content = CircleAvatar(
+          backgroundImage: AssetImage(imagePath),
+          radius: 15,
+        );
+      } else {
+        content = Image.asset(
+          imagePath,
+          width: 20,
+          height: 20,
+          color: isSelected ? null : Colors.grey,
+        );
+      }
+    } else if (icon != null) {
+      content = Icon(
+        icon,
+        color: isSelected ? null : Colors.grey,
+      );
+    } else {
+      content = Container();
+    }
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        height: 40,
+        decoration: BoxDecoration(
+          color: isSelected ? Color(0xFFEDEDEF) : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          children: [
+            content,
+            if (isSelected) SizedBox(width: 5),
+            if (isSelected)
+              Text(
+                label,
+                style: TextStyle(
+                  color: isSelected ? Colors.black : Colors.grey,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
