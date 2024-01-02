@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/util/colors.dart';
-import 'package:project/util/text_field.dart';
+import 'package:project/widget/text_field.dart';
 import 'package:project/widget/bottom_navy_bar.dart';
 
 class LoginScreen extends StatefulWidget {
