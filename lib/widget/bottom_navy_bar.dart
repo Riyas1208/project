@@ -3,6 +3,7 @@ import 'package:project/Screen/cart_screen.dart';
 import 'package:project/Screen/favourite_screen.dart';
 import 'package:project/Screen/home_screen.dart';
 import 'package:project/Screen/profile_screen.dart';
+import 'package:project/util/colors.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -30,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
         height: 50,
         width: 100,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.accentColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -84,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.symmetric(horizontal: 15),
         height: 40,
         decoration: BoxDecoration(
-          color: isSelected ? Color(0xFFEDEDEF) : Colors.white,
+          color: isSelected ? AppColors.bottomnavColor : AppColors.accentColor,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
@@ -95,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Text(
                 label,
                 style: TextStyle(
-                  color: isSelected ? Colors.black : Colors.grey,
+                  color: isSelected ? AppColors.fontColor : AppColors.hintTextColor,
                 ),
               ),
           ],

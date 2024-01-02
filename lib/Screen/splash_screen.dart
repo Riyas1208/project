@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/Screen/login_screen.dart';
+import 'package:project/util/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF272F32),
+      backgroundColor: AppColors.primaryColor,
       body: Center(
         child: ClipOval(
           child: Image.asset(

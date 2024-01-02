@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/util/colors.dart';
+import 'package:project/util/text_field.dart';
 import 'package:project/widget/bottom_navy_bar.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,30 +11,29 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _passwordVisible = false;
   bool _rememberMe = false;
-  bool _showErrors = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  bool _showEmailError = false;
+  bool _showPasswordError = false;
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF272F32),
+      backgroundColor: AppColors.primaryColor,
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
-          autovalidateMode: _showErrors
-              ? AutovalidateMode.onUserInteraction
-              : AutovalidateMode.disabled,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
                 height: screenHeight * 0.33,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.accentColor,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(50.0),
                   ),
@@ -88,58 +89,37 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(40.0),
                 child: Column(
                   children: [
-                    TextFormField(
+                    CustomTextField(
                       controller: _emailController,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: const InputDecoration(
-                        hintText: 'E-Mail',
-                        hintStyle: TextStyle(color: Colors.white38),
-                      ),
-                      validator: (value) {
-                        if (_showErrors && (value == null || value.isEmpty)) {
-                          return 'Please enter your email';
-                        }
-
-                        // Validate email format
-                        if (_showErrors &&
-                            !RegExp(r'^[a-zA-Z0-9]+@gmail\.com$')
-                                .hasMatch(value!)) {
-                          return 'Invalid email format. Use abc@gmail.com';
-                        }
-
-                        return null;
+                      hintText: 'E-Mail',
+                      showPasswordToggle: false,
+                      obscureText: false,
+                      onPasswordToggle: () {},
+                      showError: _showEmailError,
+                      onChanged: (value) {
+                        setState(() {
+                          _showEmailError = false;
+                        });
                       },
                     ),
                     SizedBox(height: screenHeight * 0.02),
-                    TextFormField(
+                    CustomTextField(
                       controller: _passwordController,
+                      hintText: 'Password',
+                      showPasswordToggle: true,
                       obscureText: !_passwordVisible,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _passwordVisible
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible;
-                            });
-                          },
-                        ),
-                        hintStyle: const TextStyle(color: Colors.white38),
-                      ),
-                      validator: (value) {
-                        if (_showErrors && (value == null || value.isEmpty)) {
-                          return 'Please enter your password';
-                        }
-                        return null;
+                      onPasswordToggle: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
+                      showError: _showPasswordError,
+                      onChanged: (value) {
+                        setState(() {
+                          _showPasswordError = false;
+                        });
                       },
                     ),
-                    SizedBox(height: screenHeight * 0.0),
                     Container(
                       child: Row(
                         children: [
@@ -170,9 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          setState(() {
-                            _showErrors = true;
-                          });
+                          setState(() {});
 
                           if (_formKey.currentState!.validate()) {
                             String email = _emailController.text;
@@ -189,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          padding: EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(16.0),
                         ),
                         child: const Text('Sign in',
                             style: TextStyle(color: Colors.black)),

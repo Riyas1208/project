@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/Screen/product_details.dart';
+import 'package:project/util/colors.dart';
 
 class Product {
   final String name;
@@ -31,6 +32,12 @@ class _ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     bool isSmallScreen = MediaQuery.of(context).size.width < 600;
 
+    double cardWidth = isSmallScreen ? 200 : 300;
+    double imageHeight = isSmallScreen ? 100 : 120;
+    double titleFontSize = isSmallScreen ? 10 : 11;
+    double descriptionFontSize = isSmallScreen ? 10 : 11;
+    double priceFontSize = isSmallScreen ? 18 : 16;
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -41,20 +48,23 @@ class _ProductCardState extends State<ProductCard> {
         );
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 1.0),
+        padding: EdgeInsets.symmetric(
+          horizontal: isSmallScreen ? 8.0 : 13.0,
+          vertical: isSmallScreen ? 0.5 : 1.0,
+        ),
         child: SizedBox(
-          width: isSmallScreen ? 200 : 300,
+          width: cardWidth,
           child: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0.0),
+              borderRadius: BorderRadius.circular(isSmallScreen ? 8.0 : 0.0),
             ),
-            color: const Color.fromARGB(255, 243, 244, 246),
+            color: AppColors.cardBackgroundColor,
             elevation: 0.0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: isSmallScreen ? 100 : 120,
+                  height: imageHeight,
                   width: double.infinity,
                   child: Image.asset(
                     widget.product.imageUrl,
@@ -73,9 +83,9 @@ class _ProductCardState extends State<ProductCard> {
                           Text(
                             widget.product.name,
                             style: TextStyle(
-                              fontSize: isSmallScreen ? 10 : 11,
+                              fontSize: titleFontSize,
                               fontWeight: FontWeight.bold,
-                              color: const Color.fromARGB(255, 98, 77, 141),
+                              color: AppColors.favoriteIconColor,
                             ),
                           ),
                           const SizedBox(height: 3),
@@ -84,7 +94,7 @@ class _ProductCardState extends State<ProductCard> {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontSize: isSmallScreen ? 10 : 11,
+                              fontSize: descriptionFontSize,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -93,8 +103,8 @@ class _ProductCardState extends State<ProductCard> {
                               Text(
                                 '\$${widget.product.price.toString()}',
                                 style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: isSmallScreen ? 18 : 16,
+                                  color: AppColors.fontColor,
+                                  fontSize: priceFontSize,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -102,7 +112,7 @@ class _ProductCardState extends State<ProductCard> {
                               IconButton(
                                 icon: Icon(
                                   isFavorite ? Icons.favorite : Icons.favorite_border,
-                                  color: isFavorite ? Colors.red : Colors.grey[350],
+                                  color: isFavorite ? AppColors.errorColor : AppColors.hintTextColor,
                                 ),
                                 onPressed: () {
                                   setState(() {

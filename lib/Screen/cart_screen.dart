@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/provider/cart_provider.dart';
+import 'package:project/util/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:project/widget/product.dart';
 
@@ -9,12 +10,20 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
+    bool isSmallScreen = MediaQuery.of(context).size.width < 600;
+
+    double itemPadding = isSmallScreen ? 8.0 : 16.0;
+    double imageSize = isSmallScreen ? 60.0 : 80.0;
+    double subtitleFontSize = isSmallScreen ? 12.0 : 14.0;
+    double totalPriceFontSize = isSmallScreen ? 15.0 : 18.0;
 
     return Scaffold(
       key: PageStorageKey('CartScreen'),
-      backgroundColor: Colors.white60,
+      backgroundColor: AppColors.accentColor,
       appBar: AppBar(
-        title: Text('Shopping Cart'),
+        backgroundColor: AppColors.accentColor,
+        title: Text('Shopping Cart',style: TextStyle(
+            color: AppColors.fontColor),),
         automaticallyImplyLeading: false,
       ),
       body: Column(
@@ -27,12 +36,12 @@ class CartScreen extends StatelessWidget {
                 int quantity = cartProvider.cartItems[index].quantity;
 
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(itemPadding),
                   child: ListTile(
                     leading: Image.asset(
                       product.imageUrl,
-                      width: 60,
-                      height: 60,
+                      width: imageSize,
+                      height: imageSize,
                       fit: BoxFit.cover,
                     ),
                     title: Text(product.name),
@@ -71,15 +80,15 @@ class CartScreen extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.white,
+            color: AppColors.accentColor,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Total Price: \$${cartProvider.calculateTotalPrice()}',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: totalPriceFontSize, fontWeight: FontWeight.bold),
                   ),
                   ElevatedButton(
                     onPressed: () {

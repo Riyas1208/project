@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/util/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:project/provider/cart_provider.dart';
 import 'package:project/widget/product.dart';
@@ -18,37 +19,45 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
+    bool isSmallScreen = MediaQuery.of(context).size.width < 600;
+
+    double backButtonSize = isSmallScreen ? 30 : 40;
+    double imageHeight = isSmallScreen ? 350 : 400;
+    double titleFontSize = isSmallScreen ? 14 : 18;
+    double descriptionFontSize = isSmallScreen ? 12 : 14;
+    double priceFontSize = isSmallScreen ? 22 : 26;
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(isSmallScreen ? 11.0 : 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 50),
+            SizedBox(height: isSmallScreen ? 40 : 50),
             IconButton(
               alignment: Alignment.topLeft,
+              iconSize: backButtonSize,
               icon: Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
-            SizedBox(height: 50),
+            SizedBox(height: isSmallScreen ? 20 : 50),
             Container(
-              height: 400,
+              height: imageHeight,
               width: double.infinity,
               child: Image.asset(
                 widget.product.imageUrl,
                 fit: BoxFit.fill,
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: isSmallScreen ? 10 : 16),
             Text(
               widget.product.name,
               style: TextStyle(
-                fontSize: 11,
+                fontSize: titleFontSize,
                 fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 98, 77, 141),
+                color: AppColors.favoriteIconColor,
               ),
             ),
             const SizedBox(height: 3),
@@ -57,7 +66,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 11,
+                fontSize: descriptionFontSize,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -66,16 +75,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 Text(
                   '\$${widget.product.price.toString()}',
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
+                    color: AppColors.fontColor,
+                    fontSize: priceFontSize,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(width: 43),
+                SizedBox(width: isSmallScreen ? 20 : 43),
                 IconButton(
                   icon: Icon(
                     isFavorite ? Icons.favorite : Icons.favorite_border,
-                    color: isFavorite ? Colors.red : Colors.grey[350],
+                    color: isFavorite ? AppColors.errorColor : AppColors.hintTextColor,
                   ),
                   onPressed: () {
                     setState(() {
@@ -85,7 +94,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: isSmallScreen ? 8 : 16),
 
             ElevatedButton(
               onPressed: () {
@@ -100,9 +109,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
               ),
-              child: Text('Add to Cart',style: TextStyle(color: Colors.black),),
+              child: Text('Add to Cart', style: TextStyle(color: Colors.black),),
             ),
-
           ],
         ),
       ),
