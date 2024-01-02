@@ -17,10 +17,8 @@ class CartProvider extends ChangeNotifier {
     int existingIndex = _cartItems.indexWhere((item) => item.product == product);
 
     if (existingIndex != -1) {
-      // If the product is already in the cart, increase its quantity
       _cartItems[existingIndex].quantity++;
     } else {
-      // If the product is not in the cart, add a new CartItem
       _cartItems.add(CartItem(product: product));
     }
 
@@ -36,7 +34,6 @@ class CartProvider extends ChangeNotifier {
     int existingIndex = _cartItems.indexWhere((item) => item.product == product);
 
     if (existingIndex != -1) {
-      // Increase the quantity of the product in the cart
       _cartItems[existingIndex].quantity++;
       notifyListeners();
     }
@@ -46,12 +43,10 @@ class CartProvider extends ChangeNotifier {
     int existingIndex = _cartItems.indexWhere((item) => item.product == product);
 
     if (existingIndex != -1) {
-      // Decrease the quantity of the product in the cart
       if (_cartItems[existingIndex].quantity > 1) {
         _cartItems[existingIndex].quantity--;
         notifyListeners();
       } else {
-        // If the quantity is 1, remove the item from the cart
         _cartItems.removeAt(existingIndex);
         notifyListeners();
       }

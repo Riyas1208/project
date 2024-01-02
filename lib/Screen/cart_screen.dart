@@ -83,7 +83,6 @@ class CartScreen extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      // Add your checkout logic here
                     },
                     child: Text('Checkout'),
                   ),

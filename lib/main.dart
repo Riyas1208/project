@@ -8,7 +8,6 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => CartProvider()),
-        // Add more providers if needed
       ],
       child: MyApp(),
     ),
