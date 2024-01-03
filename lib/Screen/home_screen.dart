@@ -96,6 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 automaticallyImplyLeading: false,
                 expandedHeight: 90.0,
                 floating: false,
+                pinned: true,
                 bottom: const PreferredSize(
                   preferredSize: Size.fromHeight(40.0),
                   child: TabBar(
