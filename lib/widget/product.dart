@@ -85,15 +85,17 @@ class _ProductCardState extends State<ProductCard> {
                             style: TextStyle(
                               fontSize: titleFontSize,
                               fontWeight: FontWeight.bold,
+                              fontFamily: 'Primary',
                               color: AppColors.favoriteIconColor,
                             ),
                           ),
-                          const SizedBox(height: 3),
+                          const SizedBox(height: 2),
                           Text(
                             widget.product.description,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
+                              fontFamily: 'Primary',
                               fontSize: descriptionFontSize,
                               fontWeight: FontWeight.bold,
                             ),
@@ -105,6 +107,7 @@ class _ProductCardState extends State<ProductCard> {
                                 style: TextStyle(
                                   color: AppColors.fontColor,
                                   fontSize: priceFontSize,
+                                  fontFamily: 'Secondary',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Icon(
                               Icons.arrow_back,
                             ),
-                            SizedBox(width: 20.0),
+                            SizedBox(width: 19.0),
                           ],
                         ),
                         SizedBox(height: 50.0),
@@ -61,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.black,
                             fontSize: 30.0,
                             fontWeight: FontWeight.bold,
+                            fontFamily: 'Primary',
                             height: 0.3,
                           ),
                         ),
@@ -69,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 30.0,
+                            fontFamily: 'Primary',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -76,6 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Continue your adventure.',
                           style: TextStyle(
                             color: Colors.black,
+                            fontFamily: 'Primary',
                             fontSize: 16.0,
                           ),
                         ),

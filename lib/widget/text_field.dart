@@ -32,7 +32,10 @@ class CustomTextField extends StatelessWidget {
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.white38),
+        hintStyle: const TextStyle(
+            color: Colors.white38,
+            fontFamily: 'Secondary'
+        ),
         suffixIcon: showPasswordToggle
             ? IconButton(
           icon: Icon(
@@ -51,10 +54,8 @@ class CustomTextField extends StatelessWidget {
         }
 
         if (hintText.toLowerCase() == 'email' && emailValidator != null) {
-          // Validate email format only if it's the email field and emailValidator is provided
           return emailValidator!(value);
         } else if (hintText.toLowerCase() == 'password' && passwordValidator != null) {
-          // Validate password format only if it's the password field and passwordValidator is provided
           return passwordValidator!(value);
         }
 
