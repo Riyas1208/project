@@ -57,6 +57,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               style: TextStyle(
                 fontSize: titleFontSize,
                 fontWeight: FontWeight.bold,
+                fontFamily: 'Primary',
                 color: AppColors.favoriteIconColor,
               ),
             ),
@@ -67,6 +68,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: descriptionFontSize,
+                fontFamily: 'Primary',
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -77,6 +79,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   style: TextStyle(
                     color: AppColors.fontColor,
                     fontSize: priceFontSize,
+                    fontFamily: 'Secondary',
                     fontWeight: FontWeight.bold,
                   ),
                 ),
