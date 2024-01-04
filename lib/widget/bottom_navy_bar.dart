@@ -14,40 +14,50 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    HomeScreen(key: PageStorageKey('HomeScreen')),
-    FavouriteScreen(key: PageStorageKey('FavouritePage')),
-    CartScreen(key: PageStorageKey('CartScreen')),
-    ProfileScreen(key: PageStorageKey('ProfilePage')),
+    HomeScreen(key: const PageStorageKey('HomeScreen')),
+    const FavouriteScreen(key: PageStorageKey('FavouritePage')),
+    const CartScreen(key: PageStorageKey('CartScreen')),
+    const ProfileScreen(key: PageStorageKey('ProfilePage')),
   ];
 
   @override
   Widget build(BuildContext context) {
+    bool isSmallScreen = MediaQuery.of(context).size.width < 600;
+
     return Scaffold(
       body: PageStorage(
         child: _pages[_currentIndex],
         bucket: PageStorageBucket(),
       ),
       bottomNavigationBar: Container(
-        height: 50,
-        width: 100,
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.only(
+          bottom: 15,
+          top: 15,
+          right: 10,
+          left: 10
+        ),
+        height: isSmallScreen ? 70 : 80,
+        decoration: const BoxDecoration(
           color: AppColors.accentColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem('Home', 'assets/h3.png', null, 0),
-            _buildNavItem('Favourite', null, Icons.favorite_border, 1),
-            _buildNavItem('Cart', null, Icons.shopping_bag_outlined, 2),
-            _buildNavItem('Profile', 'assets/p1.png', null, 3),
+            _buildNavItem('Home', 'assets/h3.png', null, 0, isSmallScreen),
+            _buildNavItem('Favourite', null, Icons.favorite_border, 1, isSmallScreen,),
+            _buildNavItem('Cart', null, Icons.shopping_bag_outlined, 2, isSmallScreen,),
+            _buildNavItem('Profile', 'assets/p1.png', null, 3, isSmallScreen),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildNavItem(String label, String? imagePath, IconData? icon,
-      int index) {
+  Widget _buildNavItem(String label,
+      String? imagePath,
+      IconData? icon,
+      int index,
+      bool isSmallScreen,) {
     bool isSelected = _currentIndex == index;
 
     Widget content;
@@ -56,13 +66,13 @@ class _MyHomePageState extends State<MyHomePage> {
       if (label == 'Profile') {
         content = CircleAvatar(
           backgroundImage: AssetImage(imagePath),
-          radius: 15,
+          radius: isSmallScreen ? 12 : 15,
         );
       } else {
         content = Image.asset(
           imagePath,
-          width: 20,
-          height: 20,
+          width: isSmallScreen ? 18 : 20,
+          height: isSmallScreen ? 18 : 20,
           color: isSelected ? null : Colors.grey,
         );
       }
@@ -82,25 +92,32 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        height: 40,
+        padding: EdgeInsets.symmetric(
+          horizontal: isSmallScreen ? 10 : 10,
+        ),
+        height: isSmallScreen ? 60 : 60,
+        width: isSmallScreen ? 90 : 110,
         decoration: BoxDecoration(
           color: isSelected ? AppColors.bottomnavColor : AppColors.accentColor,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(isSmallScreen ? 15 : 20),
         ),
-        child: Row(
-          children: [
-            content,
-            if (isSelected) SizedBox(width: 5),
-            if (isSelected)
-              Text(
-                label,
-                style: TextStyle(
-                  color: isSelected ? AppColors.fontColor : AppColors.hintTextColor
-                  ,
+        child: Align(
+          alignment: Alignment.center,
+          child: Row(
+            children: [
+              content,
+              if (isSelected) const SizedBox(width : 5),
+              if (isSelected)
+                Text(
+                  label,
+                  style: TextStyle(
+                    color: isSelected ? AppColors.fontColor : AppColors.hintTextColor,
+                    fontSize: isSmallScreen ? 9 : 14,
+                    fontWeight: isSelected ? FontWeight.normal : FontWeight.normal,
+                  ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

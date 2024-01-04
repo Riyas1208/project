@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project/util/colors.dart';
-import 'package:project/widget/text_field.dart';
 import 'package:project/widget/bottom_navy_bar.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -11,11 +10,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _passwordVisible = false;
   bool _rememberMe = false;
+  bool _showErrors = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  bool _showEmailError = false;
-  bool _showPasswordError = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,9 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          autovalidateMode: _showErrors
+              ? AutovalidateMode.onUserInteraction
+              : AutovalidateMode.disabled,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -51,34 +51,34 @@ class _LoginScreenState extends State<LoginScreen> {
                             Icon(
                               Icons.arrow_back,
                             ),
-                            SizedBox(width: 19.0),
+                            SizedBox(width: 20.0),
                           ],
                         ),
                         SizedBox(height: 50.0),
                         Text(
                           'Welcome',
                           style: TextStyle(
-                            color: Colors.black,
+                            color: AppColors.fontColor,
                             fontSize: 30.0,
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'Primary',
+                            fontFamily: "Primary",
                             height: 0.3,
                           ),
                         ),
                         Text(
                           'Back!',
                           style: TextStyle(
-                            color: Colors.black,
+                            color: AppColors.fontColor,
+                            fontFamily: "Primary",
                             fontSize: 30.0,
-                            fontFamily: 'Primary',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           'Continue your adventure.',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Primary',
+                            color: AppColors.fontColor,
+                            fontFamily: "Primary",
                             fontSize: 16.0,
                           ),
                         ),
@@ -92,37 +92,57 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(40.0),
                 child: Column(
                   children: [
-                    CustomTextField(
+                    TextFormField(
                       controller: _emailController,
-                      hintText: 'E-Mail',
-                      showPasswordToggle: false,
-                      obscureText: false,
-                      onPasswordToggle: () {},
-                      showError: _showEmailError,
-                      onChanged: (value) {
-                        setState(() {
-                          _showEmailError = false;
-                        });
+                      style: const TextStyle(color: AppColors.textColor),
+                      decoration: const InputDecoration(
+                        hintText: 'E-Mail',
+                        hintStyle: TextStyle(color: AppColors.hintTextColor),
+                      ),
+                      validator: (value) {
+                        if (_showErrors && (value == null || value.isEmpty)) {
+                          return 'Please enter your email';
+                        }
+
+                        if (_showErrors &&
+                            !RegExp(r'^[a-zA-Z0-9]+@gmail\.com$')
+                                .hasMatch(value!)) {
+                          return 'Invalid email format. Use abc@gmail.com';
+                        }
+
+                        return null;
                       },
                     ),
                     SizedBox(height: screenHeight * 0.02),
-                    CustomTextField(
+                    TextFormField(
                       controller: _passwordController,
-                      hintText: 'Password',
-                      showPasswordToggle: true,
                       obscureText: !_passwordVisible,
-                      onPasswordToggle: () {
-                        setState(() {
-                          _passwordVisible = !_passwordVisible;
-                        });
-                      },
-                      showError: _showPasswordError,
-                      onChanged: (value) {
-                        setState(() {
-                          _showPasswordError = false;
-                        });
+                      style: const TextStyle(color: AppColors.textColor),
+                      decoration: InputDecoration(
+                        hintText: 'Password',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _passwordVisible
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                        ),
+                        hintStyle: const TextStyle(color:AppColors.hintTextColor)
+                      ),
+                      validator: (value) {
+                        if (_showErrors && (value == null || value.isEmpty)) {
+                          return 'Please enter your password';
+                        }
+                        return null;
                       },
                     ),
+                    SizedBox(height: screenHeight * 0.0),
                     Container(
                       child: Row(
                         children: [
@@ -136,12 +156,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     _rememberMe = value!;
                                   });
                                 },
-                                activeColor: Colors.white,
-                                checkColor: Colors.black,
+                                activeColor: AppColors.textColor,
+                                checkColor: AppColors.fontColor
                               ),
                               const Text(
                                 'Remember Me',
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(color: AppColors.textColor),
                               ),
                             ],
                           ),
@@ -153,7 +173,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          setState(() {});
+                          setState(() {
+                            _showErrors = true;
+                          });
 
                           if (_formKey.currentState!.validate()) {
                             String email = _emailController.text;
@@ -170,10 +192,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(16.0),
                         ),
                         child: const Text('Sign in',
-                            style: TextStyle(color: Colors.black)),
+                            style: TextStyle(color: AppColors.fontColor))
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.01),
@@ -183,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () {},
                         child: const Text(
                           'Forgot Password?',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: AppColors.textColor),
                         ),
                       ),
                     ),
