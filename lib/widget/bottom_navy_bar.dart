@@ -96,7 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
               Text(
                 label,
                 style: TextStyle(
-                  color: isSelected ? AppColors.fontColor : AppColors.hintTextColor,
+                  color: isSelected ? AppColors.fontColor : AppColors.hintTextColor
+                  ,
                 ),
               ),
           ],
