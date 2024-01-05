@@ -1,44 +1,45 @@
+import 'package:project/util/app_images.dart';
 import 'package:project/widget/product.dart';
 
 List<Product> products = [
   Product(
       name: 'Libas',
-      imageUrl: 'assets/a4.png',
+      imageUrl: ProductImages.libas,
       price: 19.99,
       description: "Ethnic Print Kurta"),
   Product(
       name: 'Soch',
-      imageUrl: 'assets/a5.png',
+      imageUrl: ProductImages.soch,
       price: 29.39,
       description: "Yellow & Pink Printed"),
   Product(
       name: 'Antheaa',
-      imageUrl: 'assets/a6.png',
+      imageUrl: ProductImages.antheaa,
       price: 20.00,
       description: "Green & Brown Floral"),
   Product(
       name: 'Janasya',
-      imageUrl: 'assets/a7.png',
+      imageUrl: ProductImages.janasya,
       price: 15.69,
       description: "Pink Midi Dress"),
   Product(
       name: 'plusS',
-      imageUrl: 'assets/a8.png',
+      imageUrl: ProductImages.plusS1,
       price: 17.59,
       description: "Blue Floral Dress"),
   Product(
       name: 'Athena',
-      imageUrl: 'assets/a9.png',
+      imageUrl: ProductImages.athena,
       price: 15.99,
       description: "Pink Floral Dress"),
   Product(
       name: 'U&F',
-      imageUrl: 'assets/a0.png',
+      imageUrl: ProductImages.uAndF,
       price: 19.99,
       description: "Green Tiered Dress"),
   Product(
       name: 'plusS',
-      imageUrl: 'assets/a11.png',
+      imageUrl: ProductImages.plusS2,
       price: 25.19,
       description: "Polka-Dotted Dress"),
 ];

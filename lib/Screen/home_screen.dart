@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project/data/data.dart';
 import 'package:project/util/colors.dart';
+import 'package:project/util/custom_sliver_delegate.dart';
 import 'package:project/widget/product.dart';
 import 'package:project/widget/tab_bar.dart';
+
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -98,33 +100,5 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  final double minHeight;
-  final double maxHeight;
-  final Widget child;
 
-  SliverAppBarDelegate({
-    required this.minHeight,
-    required this.maxHeight,
-    required this.child,
-  });
 
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SizedBox.expand(child: child);
-  }
-
-  @override
-  double get maxExtent => maxHeight;
-
-  @override
-  double get minExtent => minHeight;
-
-  @override
-  bool shouldRebuild(SliverAppBarDelegate oldDelegate) {
-    return maxHeight != oldDelegate.maxHeight ||
-        minHeight != oldDelegate.minHeight ||
-        child != oldDelegate.child;
-  }
-}
