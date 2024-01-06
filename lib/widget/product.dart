@@ -100,6 +100,7 @@ class _ProductCardState extends State<ProductCard> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               Text(
@@ -111,17 +112,19 @@ class _ProductCardState extends State<ProductCard> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(width: 43),
-                              IconButton(
-                                icon: Icon(
-                                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                                  color: isFavorite ? AppColors.errorColor : AppColors.hintTextColor,
-                                ),
-                                onPressed: () {
+                              const SizedBox(width: 53),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () {
                                   setState(() {
                                     isFavorite = !isFavorite;
                                   });
                                 },
+                                child: Icon(
+                                  isFavorite ? Icons.favorite : Icons.favorite_border,
+                                  color: isFavorite ? AppColors.errorColor : AppColors.hintTextColor,
+                                ),
                               ),
                             ],
                           ),

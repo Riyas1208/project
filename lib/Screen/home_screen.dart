@@ -63,14 +63,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   minHeight: kSizeHeight * 0.08751,
                   maxHeight: kSizeHeight * 0.08751,
                     child:
-                      TabBarContainer(
+                    Container(
+                      color: AppColors.accentColor,
+                      child: TabBarContainer(
                         currentIndex: _currentIndex,
                         onTabSelected: (index) {
                           setState(() {
                             _currentIndex = index;
                           });
                         },
+                        tabTitles: ['New arrivals', 'Trending', 'Brands'],
                       ),
+                    ),
+
                 ),
                 pinned: true,
               ),

@@ -5,19 +5,22 @@ class TabBarContainer extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTabSelected;
 
+  final List<String> tabTitles;
+
   const TabBarContainer({
     Key? key,
     required this.currentIndex,
     required this.onTabSelected,
+    required this.tabTitles,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 45.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 3,
+        itemCount: tabTitles.length,
         itemBuilder: (context, index) {
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 30.0),
@@ -25,8 +28,12 @@ class TabBarContainer extends StatelessWidget {
               onPressed: () {
                 onTabSelected(index);
               },
-
               style: ButtonStyle(
+                overlayColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                    return Colors.transparent;
+                  },
+                ),
                 foregroundColor: MaterialStateProperty.resolveWith<Color>(
                       (Set<MaterialState> states) {
                     return index == currentIndex
@@ -36,25 +43,24 @@ class TabBarContainer extends StatelessWidget {
                 ),
               ),
               child: Container(
-                child: Text(
-                  index == 0 ? 'New Arrivals' : index == 1
-                      ? 'Trending'
-                      : 'Brands',
-                  style: TextStyle(
-                    color: index == currentIndex
-                        ? AppColors.fontColor
-                        : AppColors.hintTextColor,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 5.0),
+                  child: Text(
+                    tabTitles[index],
+                    style: TextStyle(
+                      color: index == currentIndex
+                          ? AppColors.fontColor
+                          : AppColors.hintTextColor,
+                    ),
                   ),
                 ),
-
                 decoration: BoxDecoration(
-
                   border: Border(
                     bottom: BorderSide(
                       color: index == currentIndex
                           ? AppColors.fontColor
                           : Colors.transparent,
-                      width: 5.0,
+                      width: 2.0,
                     ),
                   ),
                 ),
