@@ -5,7 +5,6 @@ import 'package:project/util/custom_sliver_delegate.dart';
 import 'package:project/widget/product.dart';
 import 'package:project/widget/tab_bar.dart';
 
-
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
@@ -26,7 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
       theme: ThemeData(
         useMaterial3: false,
       ),
-      home: Scaffold(
+      home: ScrollConfiguration(
+          behavior: MyScrollBehavior(),
+        child: Scaffold(
         key: PageStorageKey('HomeScreen'),
         appBar: AppBar(
           backgroundColor: AppColors.accentColor,
@@ -62,20 +63,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 delegate: SliverAppBarDelegate(
                   minHeight: kSizeHeight * 0.08751,
                   maxHeight: kSizeHeight * 0.08751,
-                    child:
-                    Container(
-                      color: AppColors.accentColor,
-                      child: TabBarContainer(
-                        currentIndex: _currentIndex,
-                        onTabSelected: (index) {
-                          setState(() {
-                            _currentIndex = index;
-                          });
-                        },
-                        tabTitles: ['New arrivals', 'Trending', 'Brands'],
-                      ),
+                  child: Container(
+                    color: AppColors.accentColor,
+                    child: TabBarContainer(
+                      currentIndex: _currentIndex,
+                      onTabSelected: (index) {
+                        setState(() {
+                          _currentIndex = index;
+                        });
+                      },
+                      tabTitles: ['New arrivals', 'Trending', 'Brands'],
                     ),
-
+                  ),
                 ),
                 pinned: true,
               ),
@@ -99,11 +98,20 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+        ),
       ),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-
-
+class MyScrollBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context,
+      Widget child,
+      AxisDirection axisDirection,
+      ) {
+    return child;
+  }
+}
