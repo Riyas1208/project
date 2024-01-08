@@ -62,7 +62,7 @@ class _ProductListPageState extends State<ProductListPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: 100.0, // Adjust the height as needed
+                    height: 100.0,
                     child: Image.network(
                       products[index].image,
                       width: double.infinity,
