@@ -4,7 +4,6 @@ import 'package:project/util/colors.dart';
 class TabBarContainer extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTabSelected;
-
   final List<String> tabTitles;
 
   const TabBarContainer({
@@ -22,6 +21,7 @@ class TabBarContainer extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: tabTitles.length,
         itemBuilder: (context, index) {
+
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 30.0),
             child: TextButton(
@@ -42,28 +42,28 @@ class TabBarContainer extends StatelessWidget {
                   },
                 ),
               ),
-              child: Container(
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 5.0),
-                  child: Text(
-                    tabTitles[index],
-                    style: TextStyle(
-                      color: index == currentIndex
-                          ? AppColors.fontColor
-                          : AppColors.hintTextColor,
+              child: Column(
+                children: [
+                  SizedBox(height: 20.0),
+                  Container(
+                    child: Text(
+                      tabTitles[index],
+                      style: TextStyle(
+                        color: index == currentIndex
+                            ? AppColors.fontColor
+                            : AppColors.hintTextColor,
+                      ),
                     ),
                   ),
-                ),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: index == currentIndex
-                          ? AppColors.fontColor
-                          : Colors.transparent,
-                      width: 2.0,
-                    ),
+                  SizedBox(height: 5.0),
+                  Container(
+                    height: 2.0,
+                    width: 30.0,
+                    color: index == currentIndex
+                        ? AppColors.fontColor
+                        : Colors.transparent,
                   ),
-                ),
+                ],
               ),
             ),
           );

@@ -71,8 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
       } else {
         content = Image.asset(
           imagePath,
-          width: isSmallScreen ? 18 : 20,
-          height: isSmallScreen ? 18 : 20,
+          width: isSmallScreen ? 23 : 25,
+          height: isSmallScreen ? 23 : 25,
           color: isSelected ? null : Colors.grey,
         );
       }
