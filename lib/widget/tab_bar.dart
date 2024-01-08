@@ -23,7 +23,7 @@ class TabBarContainer extends StatelessWidget {
         itemBuilder: (context, index) {
 
           return Container(
-            padding: EdgeInsets.symmetric(horizontal: 30.0),
+            padding: EdgeInsets.symmetric(horizontal: 25.0),
             child: TextButton(
               onPressed: () {
                 onTabSelected(index);
