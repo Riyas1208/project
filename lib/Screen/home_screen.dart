@@ -6,19 +6,6 @@ import 'package:project/util/custom_sliver_delegate.dart';
 import 'package:project/widget/product.dart';
 import 'package:project/widget/tab_bar.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        useMaterial3: false,
-      ),
-      home: HomeScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
@@ -76,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         automaticallyImplyLeading: false,
       ),
       body: NestedScrollView(
+        physics: ClampingScrollPhysics(),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverPersistentHeader(
@@ -97,32 +85,42 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             ),
           ];
         },
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            CustomScrollView(
-              slivers: [
-                SliverGrid(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: isSmallScreen ? 2 : 3,
-                    crossAxisSpacing: 4.0,
-                    mainAxisSpacing: 4.0,
+        body: ScrollConfiguration(
+          behavior: NoGlowScrollBehavior(),
+          child: TabBarView(
+            controller: _tabController,
+            children: [
+              CustomScrollView(
+                slivers: [
+                  SliverGrid(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: isSmallScreen ? 2 : 3,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                        return ProductCard(product: products[index]);
+                      },
+                      childCount: products.length,
+                    ),
                   ),
-                  delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                      return ProductCard(product: products[index]);
-                    },
-                    childCount: products.length,
-                  ),
-                ),
-              ],
-            ),
-            // Trending
-            ProductListPage(),
-            Center(child: Text('Brands Content')),
-          ],
+                ],
+              ),
+              // Trending
+              ProductListPage(),
+              Center(child: Text('Brands Content')),
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+class NoGlowScrollBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }
