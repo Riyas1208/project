@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/util/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:project/Screen/splash_screen.dart';
 import 'package:project/provider/cart_provider.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        useMaterial3: false
+        useMaterial3: false,
+        primaryColorLight: AppColors.accentColor
       ),
     );
   }

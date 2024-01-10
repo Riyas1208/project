@@ -95,24 +95,28 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       controller: _emailController,
                       style: const TextStyle(color: AppColors.textColor),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         hintText: 'E-Mail',
                         hintStyle: TextStyle(color: AppColors.hintTextColor),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.accentColor),
+                        ),
                       ),
+                      cursorColor: AppColors.accentColor,
                       validator: (value) {
                         if (_showErrors && (value == null || value.isEmpty)) {
                           return 'Please enter your email';
                         }
 
                         if (_showErrors &&
-                            !RegExp(r'^[a-zA-Z0-9]+@gmail\.com$')
-                                .hasMatch(value!)) {
+                            !RegExp(r'^[a-zA-Z0-9]+@gmail\.com$').hasMatch(value!)) {
                           return 'Invalid email format. Use abc@gmail.com';
                         }
 
                         return null;
                       },
                     ),
+
                     SizedBox(height: screenHeight * 0.02),
                     TextFormField(
                       controller: _passwordController,
@@ -133,8 +137,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           },
                         ),
-                        hintStyle: const TextStyle(color:AppColors.hintTextColor)
+                        hintStyle: const TextStyle(color: AppColors.hintTextColor),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.accentColor),
+                        ),
                       ),
+                      cursorColor: Colors.white,
                       validator: (value) {
                         if (_showErrors && (value == null || value.isEmpty)) {
                           return 'Please enter your password';
@@ -142,6 +150,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         return null;
                       },
                     ),
+
+
                     SizedBox(height: screenHeight * 0.0),
                     Container(
                       child: Row(
@@ -189,6 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.accentColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),

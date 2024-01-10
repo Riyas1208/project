@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/Screen/api_screen.dart';
+import 'package:project/Screen/photo_list_screen.dart';
 import 'package:project/data/data.dart';
 import 'package:project/util/colors.dart';
 import 'package:project/util/custom_sliver_delegate.dart';
@@ -109,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               ),
               // Trending
               ProductListPage(),
-              Center(child: Text('Brands Content')),
+              PhotoListScreen()
             ],
           ),
         ),
